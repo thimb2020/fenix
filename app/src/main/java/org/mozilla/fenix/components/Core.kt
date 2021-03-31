@@ -9,8 +9,13 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.os.StrictMode
+import android.util.Log
 import androidx.core.content.ContextCompat
+import com.smarttech.datalibrary.MyData
 import io.sentry.Sentry
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import mozilla.components.browser.engine.gecko.GeckoEngine
 import mozilla.components.browser.engine.gecko.fetch.GeckoViewFetchClient
 import mozilla.components.browser.icons.BrowserIcons
@@ -317,7 +322,7 @@ class Core(
     val pinnedSiteStorage by lazyMonitored { PinnedSiteStorage(context) }
 
     val topSitesStorage by lazyMonitored {
-        val defaultTopSites = mutableListOf<Pair<String, String>>()
+        var defaultTopSites = mutableListOf<Pair<String, String>>()
 
         strictMode.resetAfter(StrictMode.allowThreadDiskReads()) {
             if (!context.settings().defaultTopSitesAdded) {
@@ -336,6 +341,7 @@ class Core(
                         )
                     )
                 } else {
+/*
                     defaultTopSites.add(
                         Pair(
                             context.getString(R.string.default_top_site_google),
@@ -358,6 +364,13 @@ class Core(
                             SupportUtils.WIKIPEDIA_URL
                         )
                     )
+*/
+
+                    //GlobalScope.launch(Dispatchers.IO) {
+
+                        //defaultTopSites = MyData().getTopSites(context)!!
+                        //Log.d("abc", sites.toString())
+                    //}
                 }
 
                 context.settings().defaultTopSitesAdded = true

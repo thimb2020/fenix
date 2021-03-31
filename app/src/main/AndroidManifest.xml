@@ -40,14 +40,21 @@
           Note that `fennec*` build types override the targetActivity property in the Manifest
           inside their source set.
         -->
-        <activity-alias
-            android:name="${applicationId}.App"
-            android:targetActivity=".HomeActivity">
+        <activity android:name=".SplashActivity"  android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity-alias
+            android:name="${applicationId}.App"
+            android:targetActivity=".HomeActivity">
+<!--            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
 
             <meta-data
                 android:name="android.app.shortcuts"

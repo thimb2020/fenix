@@ -3,6 +3,7 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="white">#FFFFFFFF</color>
     <!-- Photon colors -->
     <color name="light_grey_50">#BFBFC9</color>
     <color name="ink_20">#312A65</color>

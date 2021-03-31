@@ -1,3 +1,4 @@
+include ':datalibrary'
 include ':app'
 
 include ':mozilla-detekt-rules'

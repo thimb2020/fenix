@@ -428,7 +428,7 @@ class HomeFragment : Fragment() {
         if (bundleArgs.getBoolean(FOCUS_ON_ADDRESS_BAR)) {
             navigateToSearch()
         } else if (bundleArgs.getLong(FOCUS_ON_COLLECTION, -1) >= 0) {
-            // No need to scroll to async'd loaded TopSites if we want to scroll to collections.
+            // No need to scroll to async'd loaded TopSite if we want to scroll to collections.
             homeViewModel.shouldScrollToTopSites = false
             /* Triggered when the user has added a tab to a collection and has tapped
             * the View action on the [TabsTrayDialogFragment] snackbar.*/

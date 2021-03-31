@@ -90,7 +90,7 @@ class HomeFragmentStoreTest {
     fun `Test changing the top sites in HomeFragmentStore`() = runBlocking {
         assertEquals(0, homeFragmentStore.state.topSites.size)
 
-        // Add 2 TopSites to the HomeFragmentStore.
+        // Add 2 TopSite to the HomeFragmentStore.
         val topSites: List<TopSite> = listOf(mockk(), mockk())
         homeFragmentStore.dispatch(HomeFragmentAction.TopSitesChange(topSites)).join()
 

@@ -13,6 +13,7 @@ import android.os.StrictMode
 import android.os.SystemClock
 import android.text.format.DateUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -31,14 +32,11 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.smarttech.datalibrary.MyData
+import com.smarttech.datalibrary.PinnedSiteEntity
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import mozilla.appservices.places.BookmarkRoot
 import mozilla.components.browser.state.search.SearchEngine
 import mozilla.components.browser.state.selector.getNormalOrPrivateTabs
@@ -258,7 +256,11 @@ open class HomeActivity : LocaleAwareAppCompatActivity(), NavHostActivity {
         startupTelemetryOnCreateCalled(intent.toSafeIntent(), savedInstanceState != null)
 
         components.core.requestInterceptor.setNavigationController(navHost.navController)
+/*        GlobalScope.launch(Dispatchers.IO) {
 
+            var sites = MyData().syncTopSites(applicationContext)
+            Log.d("abc", sites.toString())
+        }*/
         StartupTimeline.onActivityCreateEndHome(this) // DO NOT MOVE ANYTHING BELOW HERE.
     }
 
