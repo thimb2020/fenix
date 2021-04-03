@@ -32,9 +32,7 @@ class FenixOnboarding(context: Context) : PreferencesHolder {
     }
 
     fun userHasBeenOnboarded(): Boolean {
-        return strictMode.resetAfter(StrictMode.allowThreadDiskReads()) {
-            onboardedVersion == CURRENT_ONBOARDING_VERSION
-        }
+        return  true
     }
 
     companion object {

@@ -8,7 +8,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'jacoco'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
-
+apply plugin: 'kotlin-kapt'
 
 import com.android.build.OutputFile
 import groovy.json.JsonOutput
@@ -27,7 +27,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "org.mozilla"
+        applicationId "com.worldnews365"
         minSdkVersion Config.minSdkVersion
         targetSdkVersion Config.targetSdkVersion
         versionCode 1
@@ -86,11 +86,20 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'worldnews'
+            keyPassword 'daihoc@123'
+            storeFile file('worldnews2020.jks')
+            storePassword 'daihoc@123'
+        }
+    }
+
     buildTypes {
         debug {
             shrinkResources false
             minifyEnabled false
-            applicationIdSuffix ".fenix.debug"
+            //applicationIdSuffix ".vn"
             resValue "bool", "IS_DEBUG", "true"
             pseudoLocalesEnabled true
         }
@@ -123,6 +132,7 @@ android {
             applicationIdSuffix ".firefox"
             def deepLinkSchemeValue = "fenix"
             buildConfigField "String", "DEEP_LINK_SCHEME", "\"$deepLinkSchemeValue\""
+            signingConfig signingConfigs.release
             manifestPlaceholders = [
                     // This release type is meant to replace Firefox (Release channel) and therefore needs to inherit
                     // its sharedUserId for all eternity. See:
@@ -136,7 +146,16 @@ android {
             ]
         }
     }
-
+    productFlavors {
+        vietnam {
+            dimension "engine"
+            applicationIdSuffix ".vietnam"
+        }
+        us {
+            dimension "engine"
+            applicationIdSuffix ".us"
+        }
+    }
     aaptOptions {
         // All JavaScript code used internally by GeckoView is packaged in a
         // file called omni.ja. If this file is compressed in the APK,
@@ -415,7 +434,18 @@ configurations {
 }
 
 dependencies {
-    implementation project(':datalibrary')
+    implementation 'com.google.android.gms:play-services-ads:19.6.0'
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    def room_version = "2.2.5"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
+
+    // optional - Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
     jnaForTest Deps.jna
     testImplementation files(configurations.jnaForTest.copyRecursive().files)
 

@@ -11,7 +11,6 @@ import android.os.Build
 import android.os.StrictMode
 import android.util.Log
 import androidx.core.content.ContextCompat
-import com.smarttech.datalibrary.MyData
 import io.sentry.Sentry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

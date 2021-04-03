@@ -25,6 +25,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import com.google.android.gms.ads.AdRequest
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_browser.*
 import kotlinx.android.synthetic.main.fragment_browser.view.*
@@ -228,7 +229,15 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     final override fun onViewCreated(view: View, savedInstanceState: Bundle?) =
             PerfStartup.baseBfragmentOnViewCreated.measureNoInline { // weird indentation to avoid breaking blame.
         initializeUI(view)
+        requireView().home_img.setOnClickListener(View.OnClickListener {
+            findNavController().navigate(
+                BrowserFragmentDirections.actionGlobalHome(focusOnAddressBar = false)
 
+            )
+
+        })
+        val adRequest = AdRequest.Builder().build()
+        view.adView.loadAd(adRequest)
         if (customTabSessionId == null) {
             // We currently only need this observer to navigate to home
             // in case all tabs have been removed on startup. No need to

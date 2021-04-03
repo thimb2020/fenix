@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="ads_app_id">ca-app-pub-1663310704687812~2472061962</string>
+    <!--<string name="ads_unit_id">ca-app-pub-1663310704687812/7612708006</string>-->
+    <string name="ads_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="dbname">sites</string>
+
+    <string name="topsites_dbname">sites</string>
+    <string name="topsites_key">l2bt4m1rn5iknnz</string>
+
+    <string name="collection_dbname">tab_collections</string>
+    <string name="collection_key">k6bzgww8mzvtclo</string>
+
+    <string name="splash_title">Vietnam News</string>
+    <string name="splash_feature1">- Miễn phí hoàn toàn</string>
+    <string name="splash_feature2">- Danh bạ web hàng đầu</string>
+    <string name="splash_feature3">- Chặn quảng cáo, spam</string>
+    <string name="splash_feature4">- Nghe nhạc, lướt Web đồng thời</string>
+    <string name="splash_loading">Đang tải dữ liệu lần đầu,  vui lòng chờ ít giây...</string>
+
+
+</resources>
+

@@ -5,12 +5,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
-import com.smarttech.datalibrary.MyData
-import com.smarttech.datalibrary.utils.FileUtil
+import android.provider.Settings
+import com.news.data.MyData
+import com.news.data.utils.FileUtil
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.*
 import mozilla.components.feature.tab.collections.TabCollectionStorage
 import org.mozilla.fenix.ext.settings
+import org.mozilla.gecko.GeckoThread.launch
 import kotlin.coroutines.CoroutineContext
 
 class SplashActivity : AppCompatActivity(), CoroutineScope {
@@ -31,32 +33,35 @@ class SplashActivity : AppCompatActivity(), CoroutineScope {
         job = Job()
         //hideSystemUI();
         setContentView(R.layout.activity_splash)
-/*        StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder()
-            .detectDiskReads()
-            .detectDiskWrites()
-            .detectNetwork()
-            .penaltyDeath()
-            .build());*/
-
-
-        activityScope.launch(Dispatchers.IO) {
+        val threadPolicy = StrictMode.ThreadPolicy.Builder()
+            .permitDiskReads()
+            .permitDiskWrites() // If you also want to ignore DiskWrites, Set this line too.
+            .permitNetwork()
+            .build();
+        StrictMode.setThreadPolicy(threadPolicy);
+        GlobalScope.launch(Dispatchers.IO) {
+            StrictMode.setThreadPolicy(threadPolicy);
             //Start directly from the IO thread here
-            launch(Dispatchers.IO) {
-                if (!FileUtil.databaseFileExists(applicationContext, "sites.db")) {
-                    MyData().syncTopSites(applicationContext)
-                    applicationContext.settings().defaultTopSitesAdded = true
-                    FileUtil.attachDbFromDropBox(
-                        applicationContext,
-                        "k6bzgww8mzvtclo",
-                        "tab_collections"
-                    )
-                }
+            if (!FileUtil.databaseFileExists(applicationContext, getString(R.string.dbname))) {
+                MyData().syncTopSites(applicationContext)
+                applicationContext.settings().defaultTopSitesAdded = true
+                FileUtil.attachDbFromDropBox(
+                    applicationContext,
+                    getString(R.string.collection_key),
+                    getString(R.string.collection_dbname)
+                )
+            }
+            withContext(Dispatchers.Main) {
                 var intent = Intent(this@SplashActivity, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
+
             }
         }
+
+
     }
+
 
     override fun onDestroy() {
         job.cancel()

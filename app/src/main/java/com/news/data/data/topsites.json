@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "url": "dantri.com",
+    "title": "Dân trí",
+    "isDefault": true
+  },
+  {
+    "id": 2,
+    "url": "vnexpress.net",
+    "title": "Vnexpress",
+    "isDefault": true
+  }
+]

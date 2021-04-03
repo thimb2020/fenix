@@ -18,21 +18,30 @@
             android:id="@+id/browserLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/loginSelectBar"
+            app:layout_constraintBottom_toTopOf="@id/loginSelectBar"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:context="browser.BrowserFragment">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"></LinearLayout>
 
             <mozilla.components.ui.widgets.VerticalSwipeRefreshLayout
                 android:id="@+id/swipeRefresh"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:layout_anchor="@+id/linearLayout"
+                app:layout_anchorGravity="center">
 
                 <mozilla.components.concept.engine.EngineView
-                    tools:ignore="Instantiatable"
                     android:id="@+id/engineView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    tools:ignore="Instantiatable" />
             </mozilla.components.ui.widgets.VerticalSwipeRefreshLayout>
 
             <ViewStub
@@ -58,17 +67,55 @@
                 android:layout_gravity="bottom"
                 android:background="?foundation"
                 android:elevation="24dp"
-                android:visibility="gone" />
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Name" />
+            </mozilla.components.feature.readerview.view.ReaderViewControlsBar>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <mozilla.components.feature.prompts.login.LoginSelectBar
-            android:visibility="gone"
             android:id="@+id/loginSelectBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/bottomLL"
+            app:layout_constraintTop_toBottomOf="@id/browserLayout">
+
+        </mozilla.components.feature.prompts.login.LoginSelectBar>
+
+        <LinearLayout
+            android:id="@+id/bottomLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/browserLayout" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loginSelectBar">
+
+            <ImageView
+                android:id="@+id/home_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:srcCompat="@drawable/ic_baseline_home_48" />
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:adSize="BANNER"
+                app:adUnitId="@string/ads_unit_id"></com.google.android.gms.ads.AdView>
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <org.mozilla.fenix.browser.TabPreview

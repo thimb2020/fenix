@@ -32,8 +32,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.smarttech.datalibrary.MyData
-import com.smarttech.datalibrary.PinnedSiteEntity
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
@@ -191,7 +190,13 @@ open class HomeActivity : LocaleAwareAppCompatActivity(), NavHostActivity {
 
         setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown(intent))
         setContentView(R.layout.activity_home)
+        val threadPolicy = StrictMode.ThreadPolicy.Builder()
+            .permitDiskReads()
+            .permitDiskWrites() // If you also want to ignore DiskWrites, Set this line too.
+            .build();
 
+        StrictMode.setThreadPolicy(threadPolicy);
+        MobileAds.initialize(this) {}
         // Must be after we set the content view
         if (isVisuallyComplete) {
             components.performance.visualCompletenessQueue
